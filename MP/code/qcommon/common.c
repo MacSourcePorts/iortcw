@@ -45,7 +45,11 @@ int demo_protocols[] =
 
 #define MIN_DEDICATED_COMHUNKMEGS 1
 #define MIN_COMHUNKMEGS 128 // JPW NERVE changed this to 42 for MP, was 56 for team arena and 75 for wolfSP
-#define DEF_COMHUNKMEGS 256 // RF, increased this, some maps are exceeding 56mb // JPW NERVE changed this for multiplayer back to 42, 56 for depot/mp_cpdepot, 42 for everything else
+#if defined __arm64__
+#define DEF_COMHUNKMEGS 	512
+#else
+#define DEF_COMHUNKMEGS 	256 // RF, increased this, some maps are exceeding 56mb // JPW NERVE changed this for multiplayer back to 42, 56 for depot/mp_cpdepot, 42 for everything else
+#endif
 #define DEF_COMZONEMEGS 32 // JPW NERVE cut this back too was 30
 #define DEF_COMHUNKMEGS_S	XSTRING(DEF_COMHUNKMEGS)
 #define DEF_COMZONEMEGS_S	XSTRING(DEF_COMZONEMEGS)

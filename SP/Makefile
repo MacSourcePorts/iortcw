@@ -24,7 +24,7 @@ ifndef BUILD_GAME_SO
   BUILD_GAME_SO    =
 endif
 ifndef BUILD_GAME_QVM
-  BUILD_GAME_QVM   = 0
+  BUILD_GAME_QVM   = 
 endif
 ifndef BUILD_BASEGAME
   BUILD_BASEGAME =
@@ -511,6 +511,9 @@ ifeq ($(PLATFORM),darwin)
   ifeq ($(ARCH),x86_64)
     OPTIMIZEVM += -mfpmath=sse
     BASE_CFLAGS += -arch x86_64
+  endif
+  ifeq ($(ARCH),arm64)
+    BASE_CFLAGS += -arch arm64
   endif
 
   # When compiling on OSX for OSX, we're not cross compiling as far as the

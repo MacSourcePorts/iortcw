@@ -37,3 +37,6 @@ profile
 # Microsoft Visual Studio
 ####################
 *.sdf
+
+make-macosx-values.local
+SP/10
