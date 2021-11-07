@@ -119,11 +119,11 @@ function symlinkArch()
     popd > /dev/null
 }
 
-SEARCH_ARCHS="	\
-	x86	\
-	x86_64	\
-	ppc	\
-	arm64 \
+SEARCH_ARCHS="																	\
+	x86																			\
+	x86_64																		\
+	ppc																			\
+	arm64																		\
 "
 
 HAS_LIPO=`command -v lipo`
@@ -167,11 +167,15 @@ CGAME_NAME="${CGAME}.dylib"
 GAME_NAME="${GAME}.dylib"
 UI_NAME="${UI}.dylib"
 
+CGAME_NAME_QVM="${CGAME}.qvm"
+GAME_NAME_QVM="${GAME}.qvm"
+UI_NAME_QVM="${UI}.qvm"
+
 RENDERER_OPENGL1_NAME="renderer_mp_opengl1.dylib"
 RENDERER_OPENGL2_NAME="renderer_mp_rend2.dylib"
 
 ICNSDIR="misc"
-ICNS="iortcw.icns"
+ICNS="iortcwmp.icns"
 PKGINFO="APPLIORTCW"
 
 OBJROOT="build"
@@ -256,7 +260,11 @@ fi
 
 # set the final application bundle output directory
 if [ "${2}" == "" ]; then
+	if [ -n "${MACOSX_DEPLOYMENT_TARGET_ARM64}" ]; then
+		BUILT_PRODUCTS_DIR="${OBJROOT}/${TARGET_NAME}-darwin-universal2"
+	else
 	BUILT_PRODUCTS_DIR="${OBJROOT}/${TARGET_NAME}-darwin-universal"
+	fi
 	if [ ! -d ${BUILT_PRODUCTS_DIR} ]; then
 		mkdir -p ${BUILT_PRODUCTS_DIR} || exit 1;
 	fi
@@ -298,7 +306,7 @@ PLIST="<?xml version=\"1.0\" encoding=\"UTF-8\"?>
     <key>CFBundleExecutable</key>
     <string>${EXECUTABLE_NAME}</string>
     <key>CFBundleIconFile</key>
-    <string>iortcw</string>
+    <string>iortcwmp</string>
     <key>CFBundleIdentifier</key>
     <string>org.iortcw.${PRODUCT_NAME}</string>
     <key>CFBundleInfoDictionaryVersion</key>
@@ -403,10 +411,16 @@ symlinkArch "${RENDERER_OPENGL}" "${RENDERER_OPENGL}" "_" "${BUNDLEBINDIR}"
 symlinkArch "${RENDERER_OPENGL2}" "${RENDERER_OPENGL2}" "_" "${BUNDLEBINDIR}"
 
 # game
-action "${BUNDLEBINDIR}/${BASEDIR}/${CGAME_NAME}"		"${IORTCW_CGAME_ARCHS}"
-action "${BUNDLEBINDIR}/${BASEDIR}/${GAME_NAME}"		"${IORTCW_GAME_ARCHS}"
-action "${BUNDLEBINDIR}/${BASEDIR}/${UI_NAME}"			"${IORTCW_UI_ARCHS}"
-symlinkArch "${CGAME}"	"${CGAME}."	""	"${BUNDLEBINDIR}/${BASEDIR}"
-symlinkArch "${GAME}"	"${GAME}."	""	"${BUNDLEBINDIR}/${BASEDIR}"
-symlinkArch "${UI}"		"${UI}."		""	"${BUNDLEBINDIR}/${BASEDIR}"
+# action "${BUNDLEBINDIR}/${BASEDIR}/${CGAME_NAME}"		"${IORTCW_CGAME_ARCHS}"
+# action "${BUNDLEBINDIR}/${BASEDIR}/${GAME_NAME}"		"${IORTCW_GAME_ARCHS}"
+# action "${BUNDLEBINDIR}/${BASEDIR}/${UI_NAME}"			"${IORTCW_UI_ARCHS}"
+# symlinkArch "${CGAME}"	"${CGAME}."	""	"${BUNDLEBINDIR}/${BASEDIR}"
+# symlinkArch "${GAME}"	"${GAME}."	""	"${BUNDLEBINDIR}/${BASEDIR}"
+# symlinkArch "${UI}"		"${UI}."		""	"${BUNDLEBINDIR}/${BASEDIR}"
 
+# qvms
+# there's a right way to do this, I'll figure it out later
+mkdir "${BUNDLEBINDIR}/${BASEDIR}/vm"
+cp "build/release-darwin-x86_64/main/vm/${CGAME_NAME_QVM}" "${BUNDLEBINDIR}/${BASEDIR}/vm"
+cp "build/release-darwin-x86_64/main/vm/${GAME_NAME_QVM}" "${BUNDLEBINDIR}/${BASEDIR}/vm"
+cp "build/release-darwin-x86_64/main/vm/${UI_NAME_QVM}" "${BUNDLEBINDIR}/${BASEDIR}/vm"

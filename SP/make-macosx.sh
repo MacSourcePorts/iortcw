@@ -6,7 +6,7 @@
 if [ $# -ne 1 ]; then
 	echo "Usage:   $0 target_architecture"
 	echo "Example: $0 x86"
-	echo "other valid options are x86_64, ppc or arm64"
+	echo "other valid options are arm64, x86_64 or ppc"
 	echo
 	echo "If you don't know or care about architectures please consider using make-macosx-ub.sh instead of this script."
 	exit 1
@@ -22,7 +22,7 @@ elif [ "$1" == "arm64" ]; then
 	BUILDARCH=arm64
 else
 	echo "Invalid architecture: $1"
-	echo "Valid architectures are x86, x86_64, ppc or arm64"
+	echo "Valid architectures are arm64, x86_64, x86, or ppc"
 	exit 1
 fi
 
@@ -63,6 +63,8 @@ elif [ -d /Developer/SDKs/MacOSX10.6.sdk ]; then
 	ARCH_MACOSX_VERSION_MIN="10.6"
 elif [ $MACOS_MAJOR_VER == 10 ] && [ $MACOS_MINOR_VER >= 9 ] || [ $MACOS_MAJOR_VER > 10 ]; then
 	ARCH_MACOSX_VERSION_MIN="10.9"
+elif [ $BUILDARCH = "arm64" ]; then
+	ARCH_MACOSX_VERSION_MIN="11.0"
 else
 	ARCH_MACOSX_VERSION_MIN="10.7"
 fi
