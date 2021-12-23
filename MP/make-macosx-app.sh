@@ -411,16 +411,10 @@ symlinkArch "${RENDERER_OPENGL}" "${RENDERER_OPENGL}" "_" "${BUNDLEBINDIR}"
 symlinkArch "${RENDERER_OPENGL2}" "${RENDERER_OPENGL2}" "_" "${BUNDLEBINDIR}"
 
 # game
-# action "${BUNDLEBINDIR}/${BASEDIR}/${CGAME_NAME}"		"${IORTCW_CGAME_ARCHS}"
-# action "${BUNDLEBINDIR}/${BASEDIR}/${GAME_NAME}"		"${IORTCW_GAME_ARCHS}"
-# action "${BUNDLEBINDIR}/${BASEDIR}/${UI_NAME}"			"${IORTCW_UI_ARCHS}"
-# symlinkArch "${CGAME}"	"${CGAME}."	""	"${BUNDLEBINDIR}/${BASEDIR}"
-# symlinkArch "${GAME}"	"${GAME}."	""	"${BUNDLEBINDIR}/${BASEDIR}"
-# symlinkArch "${UI}"		"${UI}."		""	"${BUNDLEBINDIR}/${BASEDIR}"
+action "${BUNDLEBINDIR}/${BASEDIR}/${CGAME_NAME}"		"${IORTCW_CGAME_ARCHS}"
+action "${BUNDLEBINDIR}/${BASEDIR}/${GAME_NAME}"		"${IORTCW_GAME_ARCHS}"
+action "${BUNDLEBINDIR}/${BASEDIR}/${UI_NAME}"			"${IORTCW_UI_ARCHS}"
+symlinkArch "${CGAME}"	"${CGAME}."	""	"${BUNDLEBINDIR}/${BASEDIR}"
+symlinkArch "${GAME}"	"${GAME}."	""	"${BUNDLEBINDIR}/${BASEDIR}"
+symlinkArch "${UI}"		"${UI}."		""	"${BUNDLEBINDIR}/${BASEDIR}"
 
-# qvms
-# there's a right way to do this, I'll figure it out later
-mkdir "${BUNDLEBINDIR}/${BASEDIR}/vm"
-cp "build/release-darwin-x86_64/main/vm/${CGAME_NAME_QVM}" "${BUNDLEBINDIR}/${BASEDIR}/vm"
-cp "build/release-darwin-x86_64/main/vm/${GAME_NAME_QVM}" "${BUNDLEBINDIR}/${BASEDIR}/vm"
-cp "build/release-darwin-x86_64/main/vm/${UI_NAME_QVM}" "${BUNDLEBINDIR}/${BASEDIR}/vm"

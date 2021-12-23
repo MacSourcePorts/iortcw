@@ -410,9 +410,3 @@ symlinkArch "${CGAME}"	"${CGAME}."	""	"${BUNDLEBINDIR}/${BASEDIR}"
 symlinkArch "${GAME}"	"${GAME}."	""	"${BUNDLEBINDIR}/${BASEDIR}"
 symlinkArch "${UI}"		"${UI}."		""	"${BUNDLEBINDIR}/${BASEDIR}"
 
-# qvms
-# there's a right way to do this, I'll figure it out later
-mkdir "${BUNDLEBINDIR}/${BASEDIR}/vm"
-cp "build/release-darwin-x86_64/main/vm/${CGAME_NAME_QVM}" "${BUNDLEBINDIR}/${BASEDIR}/vm"
-cp "build/release-darwin-x86_64/main/vm/${GAME_NAME_QVM}" "${BUNDLEBINDIR}/${BASEDIR}/vm"
-cp "build/release-darwin-x86_64/main/vm/${UI_NAME_QVM}" "${BUNDLEBINDIR}/${BASEDIR}/vm"
